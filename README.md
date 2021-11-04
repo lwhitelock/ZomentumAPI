@@ -9,7 +9,21 @@ This is an unofficial powershell module to allow access to the Zomentum API. I a
 Install-Module  ZomentumAPI
 
 ## Implemented Commands
+Connect-Zomentum
 
+Get-ZomentumClients
+
+Get-ZomentumCallLogs
+
+Get-ZomentumCompany
+
+Get-ZomentumContacts
+
+Get-ZomentumCustomFields
+
+Get-ZomentumDocuments
+
+Get-ZomentumEmailLog
 
 ## Usage
 ### Filtering
@@ -29,3 +43,11 @@ $ExampleFilters = @(
 			}
 		)
 ```
+### Commands
+#### Connect-Zomentum
+You can connect to the Zomentum API by using either an access token or a refresh token. Using a refresh token will invalidate your previous access token. Access tokens are valid for 24 hours.
+```PowerShell
+Connect-Zomentum -AccessToken $AccessToken
+Connect-Zomentum -RefreshToken $RefreshToken
+```
+

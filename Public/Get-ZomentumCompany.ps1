@@ -8,7 +8,7 @@ function Get-ZomentumCompany {
             A powershell object containing the response.
     #>
     
-    $Company = Invoke-ZomentumRequest -method get -resource "client/companies"
+    $Company = Invoke-ZomentumRequest -method get -resource "companies"
     
     return $Company.data
   

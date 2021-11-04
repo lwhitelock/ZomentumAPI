@@ -8,23 +8,6 @@ This is an unofficial powershell module to allow access to the Zomentum API. I a
 ## Installation
 Install-Module  ZomentumAPI
 
-## Implemented Commands
-Connect-Zomentum
-
-Get-ZomentumClients
-
-Get-ZomentumCallLogs
-
-Get-ZomentumCompany
-
-Get-ZomentumContacts
-
-Get-ZomentumCustomFields
-
-Get-ZomentumDocuments
-
-Get-ZomentumEmailLog
-
 ## Usage
 ### Filtering
 For filtering requests in the Zomentum API please refer to the Zomentum API Docs (https://api-docs.zomentum.com/) to see the supported filters and field names for each endpoint.
@@ -43,27 +26,28 @@ $ExampleFilters = @(
 			}
 		)
 ```
-### Commands
+## Commands
+### Connecting
+Please refer to the Zomentum API Docs (https://api-docs.zomentum.com/) for details on obtaining your tokens.
 #### Connect-Zomentum
 You can connect to the Zomentum API by using either an access token or a refresh token. Using a refresh token will invalidate your previous access token. Access tokens are valid for 24 hours.
 ```PowerShell
 Connect-Zomentum -AccessToken $AccessToken
 Connect-Zomentum -RefreshToken $RefreshToken
 ```
-
+### Get Commands
 #### Get-ZomentumCallLogs
 ```PowerShell
 Get-ZomentumCallLogs -CallLogID "1234vgcdfgd123"
 Get-ZomentumCallLogs -Filters $ExampleFilters
 ```
-
 #### Get-ZomentumClients
 ```PowerShell
 Get-ZomentumClients -ClientID "1234vgcdfgd123"
 Get-ZomentumClients -Filters $ExampleFilters
 ```
 #### Get-ZomentumCompany
-This should return your own company, but at present it returns all objects
+This should return your own company, but at present it returns all client objects
 ```PowerShell
 Get-ZomentumCompany
 ```
@@ -88,3 +72,173 @@ Get-ZomentumDocuments -Filters $ExampleFilters
 Get-ZomentumEmailLogs -EmailLogID "1234vgcdfgd123"
 Get-ZomentumEmailLogs -Filters $ExampleFilters -EntityType ["client_company" / "opportunity"] -EntityID "12345asdbb1234"
 ```
+#### Get-ZomentumOpportunities
+```PowerShell
+Get-ZomentumOpportunities -OpportunityID "1234vgcdfgd123"
+Get-ZomentumOpportunities -Filters $ExampleFilters -PipelineID "1234abcdef1234"
+```
+#### Get-ZomentumPipelines
+```Powershell
+Get-ZomentumPipelines -PipelineID "1234asbbf1234"
+Get-ZomentumPipelines -Filters $ExampleFiters
+```
+#### Get-ZomentumProducts
+```Powershell
+Get-ZomentumProducts -ProductID "1234asbbf1234"
+Get-ZomentumProducts -Filters $ExampleFiters
+```
+#### Get-ZomentumSalesMeetings
+```PowerShell
+Get-ZomentumSalesMeetings -MeetingID "1234vgcdfgd123"
+Get-ZomentumSalesMeetings -Filters $ExampleFilters -EntityType ["client_company" / "opportunity"] -EntityID "12345asdbb1234"
+```
+#### Get-ZomentumSalesTasks
+```PowerShell
+Get-ZomentumSalesTasks -TaskID "1234vgcdfgd123"
+Get-ZomentumSalesTasks -Filters $ExampleFilters -EntityType ["client_company" / "opportunity"] -EntityID "12345asdbb1234"
+```
+#### Get-ZomentumTaxCategory
+```Powershell
+Get-ZomentumTaxCategory -TaxCatID "1234asbbf1234"
+Get-ZomentumTaxCategory -Filters $ExampleFiters
+```
+#### Get-ZomentumTaxRegion
+```Powershell
+Get-ZomentumTaxRegion -TaxRegionID "1234asbbf1234"
+Get-ZomentumTaxRegion -Filters $ExampleFiters
+```
+#### Get-ZomentumUsers
+```Powershell
+Get-ZomentumUsers -UserID "1234asbbf1234"
+Get-ZomentumUsers -Filters $ExampleFiters
+```
+### New Commands
+For new commands the examples show only the required fields. To see all the available fields please consult the API documentation https://api-docs.zomentum.com/
+#### New-ZomentumCallLog
+```PowerShell
+$NewCallLog = @{
+    title = "API Created Call Log"
+    outcome = "connected"
+    entity_id = "ClientID1234abcd1234556"
+    entity_type = "client_company"
+    date_time = "$(Get-Date -format 'o')"
+}
+New-ZomentumCallLog -CallLog $NewCallLog
+```
+#### New-ZomentumClient
+```PowerShell
+$NewClient = @{
+    name = "API Created Test Company"
+}
+New-ZomentumClient -Client $NewClient
+```
+#### New-ZomentumContact
+```PowerShell
+$NewContact = [ordered]@{
+    name = @{
+        first = "API Created"
+        last = "Contact"
+    }
+    client_company_id = "ClientID1234abcd1234556"
+    contact_type = "primary_contact"
+}
+New-ZomentumContact -Contact $NewContact
+```
+#### New-ZomentumEmailLog
+```PowerShell
+$NewEmailLog = @{
+    title = "API Created Email Log"
+    entity_id = "ClientID1234abcd1234556"
+    entity_type = "client_company"
+    date_time = "$(Get-Date -format 'o')"
+}
+New-ZomentumEmailLog -EmailLog $NewEmailLog
+```
+#### New-ZomentumOpportunity
+```PowerShell
+$NewOpportunity = @{
+    name = "API Created Opportunity"
+    client_company_id = "ClientID1234abcd1234556"
+    linked_client_user_ids = @("abcdefg12345gfdsa")
+    opportunity_pipeline_id = "cdefgh432312fdsberea"
+    opportunity_pipeline_stage_id = "efgh54321dfgdfghdfs"
+}
+New-ZomentumOpportunity -Opportunity $NewOpportunity
+```
+#### New-ZomentumProduct
+```PowerShell
+$NewProduct = @{
+    name        = "API Created Product"
+    type        = "service"
+    description = "This is a test product created through the API"
+    item_images = @("https://assets.website-files.com/5d9c347f1416aefa5128c8c3/5fc1e7baf194774abf44f2a2_zomentum%20white%20logo.png")
+    pricing     = @(
+        @{
+            name           = "Example Pricing"
+            billing_period = "monthly"
+            sell_price     = 13.00
+            setup_price    = 13.00
+        }
+    )
+}
+New-ZomentumProduct -Product $NewProduct
+```
+#### New-ZomentumSalesMeeting
+```PowerShell
+$Date = Get-Date
+$NewSalesMeeting = @{
+    meeting_title = "API Created Sales Meeting"
+    date_time = "$(Get-Date($Date) -format 'yyyy-MM-ddTHH:mm:00+0000')"
+    end_date_time = "$(Get-Date($Date.AddMinutes(10)) -format 'yyyy-MM-ddTHH:mm:00+0000')"
+    entity_id = "ClientID1234abcd1234556"
+    entity_type = "client_company"
+    is_all_day = $false
+    attendees = @(
+        @{
+            attendee_id = "abcdefg12345gfdsa"
+            attendee_type = "user"
+        }
+    )
+    all_reminder_details = @(
+        @{
+            reminder_type = "in_app_notification"
+            sales_activity_reminder_unit = "minute"
+            reminder_interval = 15
+        }
+    )
+}
+New-ZomentumSalesMeeting -SalesMeeting $NewSalesMeeting
+```
+#### New-ZomentumSalesTask
+```PowerShell
+$NewSalesTask = @{
+    title = "API Created Sales Task"
+    entity_id = "ClientID1234abcd1234556"
+    entity_type = "client_company"
+    date_time = "$(Get-Date -format 'o')"
+    priority = "medium"
+    is_marked_completed = $false
+}
+New-ZomentumSalesTask -SalesTask $NewSalesTask
+```
+### Set Commands
+Set Commands use the same format as New Commands except you need to include the ID of the object you are updating. For example:
+```PowerShell
+$UpdateClient = @{
+    id = "ClientID1234abcd1234556"
+    name = "API Created Test Company Updated"
+}
+Set-ZomentumClient -Client $UpdateClient
+```
+
+The avalible commands are:
+```PowerShell
+Set-ZomentumCallLog
+Set-ZomentumClient
+Set-ZomentumContact
+Set-ZomentumEmailLog
+Set-ZomentumOpportunity
+Set-ZomentumProduct
+Set-ZomentumSalesMeeting
+Set-ZomentumSalesTask
+``` 

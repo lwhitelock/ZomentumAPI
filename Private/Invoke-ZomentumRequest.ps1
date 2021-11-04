@@ -23,18 +23,6 @@ function Invoke-ZomentumRequest {
 	$ResourceFilter = ''
 
 	if ($Filters) {
-		#$ExampleFilters = @(
-		#	@{
-		#		field    = "phone"
-		#		operator = "eq"
-		#		value    = "1234566789"
-		#	},
-		#	@{
-		#		field    = "outcome"
-		#		operator = "eq"
-		#		value    = "connected"
-		#	}
-		#)
 
 		Write-Verbose "Generating Filter"
 

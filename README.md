@@ -51,3 +51,40 @@ Connect-Zomentum -AccessToken $AccessToken
 Connect-Zomentum -RefreshToken $RefreshToken
 ```
 
+#### Get-ZomentumCallLogs
+```PowerShell
+Get-ZomentumCallLogs -CallLogID "1234vgcdfgd123"
+Get-ZomentumCallLogs -Filters $ExampleFilters
+```
+
+#### Get-ZomentumClients
+```PowerShell
+Get-ZomentumClients -ClientID "1234vgcdfgd123"
+Get-ZomentumClients -Filters $ExampleFilters
+```
+#### Get-ZomentumCompany
+This should return your own company, but at present it returns all objects
+```PowerShell
+Get-ZomentumCompany
+```
+#### Get-ZomentumContacts
+```PowerShell
+Get-ZomentumContacts -ContactID "1234vgcdfgd123"
+Get-ZomentumContacts -Filters $ExampleFilters
+```
+#### Get-ZomentumCustomFields
+```PowerShell
+Get-ZomentumCustomFields -CustomFieldID "1234vgcdfgd123"
+Get-ZomentumCustomFields -EntityType ["client_company"/"opportunity"/"client_user"/"item"/"document"]
+```
+#### Get-ZomentumDocuments
+```PowerShell
+Get-ZomentumDocuments -DocumentID "1234vgcdfgd123" -OutPath "C:\Temp\"
+Get-ZomentumDocuments -DocumentID "1234vgcdfgd123" -OutFile "C:\Temp\FileName.pdf"
+Get-ZomentumDocuments -Filters $ExampleFilters
+```
+#### Get-ZomentumEmailLogs
+```PowerShell
+Get-ZomentumEmailLogs -EmailLogID "1234vgcdfgd123"
+Get-ZomentumEmailLogs -Filters $ExampleFilters -EntityType ["client_company" / "opportunity"] -EntityID "12345asdbb1234"
+```

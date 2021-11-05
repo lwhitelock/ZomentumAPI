@@ -10,6 +10,6 @@ function Get-ZomentumCompany {
     
     $Company = Invoke-ZomentumRequest -method get -resource "companies"
     
-    return $Company.data
+    return $Company
   
 }

@@ -1,6 +1,9 @@
 
 ## Release Notes
-0.1 Base Release
+### 0.2 Release
+Fixed Refresh Token Authorization after Zomentum fix.
+Fixed Get Company
+### 0.1 Base Release
 
 ## Notes
 This is an unofficial powershell module to allow access to the Zomentum API. I am not associated with Zomentum other than as a customer.

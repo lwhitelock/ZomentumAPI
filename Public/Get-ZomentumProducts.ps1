@@ -14,13 +14,20 @@ function Get-ZomentumProducts {
         [string]$ProductID,
         # An Object containing filter variables
         [Parameter( ParameterSetName = 'Multiple')]
-        [PSCustomObject]$Filters
+        [PSCustomObject]$Filters,
+        # The Child entities to include with the records.
+        [Parameter( ParameterSetName = 'Multiple')]
+        [string]$IncludeChildren
     )
   
     if ($ProductID) {
         Write-Verbose "Fetching Single Product"
         $Products = Invoke-ZomentumRequest -method get -resource "items/$ProductID"
     } else {
+        $QueryString = ''
+        if ($IncludeChildren){
+            $QueryString = $QueryString + "&included_child_entities=$IncludeChildren"
+        }
         Write-Verbose "Fetching Multiple Products"
         $Products = Invoke-ZomentumRequest -method get -resource "items" -Filters $Filters -MultiFetch
     }

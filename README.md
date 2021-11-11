@@ -1,5 +1,7 @@
 
 ## Release Notes
+### 0.3 Release
+Added IncludeChildren options
 ### 0.2 Release
 Fixed Refresh Token Authorization after Zomentum fix.
 Fixed Get Company
@@ -29,6 +31,35 @@ $ExampleFilters = @(
 			}
 		)
 ```
+### Include extra information.
+Some of the multifetch commands support fetching more than just the default information. To utilize this you can add a -IncludeChildren parameter with a string in the format of: "documents:all,sales_activities:action_status"
+
+The complete list of options are:
+activities:all
+blocks:current_revision
+client_users:all
+client_users:count
+comments:all
+documents:all
+opportunities:all
+users:all
+client_companies:name
+companies:all
+opportunities:count
+opportunities:name
+sales_activities:action_status
+assessment_logs:all
+assessment_logs:blocks
+qbr_health_status:block
+qbr_risk_matrix:blocks
+qbr_logs:blocks", "tax:all
+parent_entity:summary
+async_operation:operation_status
+merge_tags:all
+approval_automation_rules:all
+document:needs_signature
+client_details:sync_data
+
 ## Commands
 ### Connecting
 Please refer to the Zomentum API Docs (https://api-docs.zomentum.com/) for details on obtaining your tokens.

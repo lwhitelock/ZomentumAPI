@@ -17,6 +17,9 @@ function Get-ZomentumDocuments {
         # An Object containing filter variables
         [Parameter( ParameterSetName = 'Multiple')]
         [PSCustomObject]$Filters,
+        # The Child entities to include with the records.
+        [Parameter( ParameterSetName = 'Multiple')]
+        [string]$IncludeChildren,
         # Allow Writing Directly to File, using the specified path and file name eg c:\temp\myfile.txt
         [Parameter( ParameterSetName = 'SingleFile', Mandatory = $True )]
         [String]$OutFile,
@@ -50,6 +53,10 @@ function Get-ZomentumDocuments {
                 return $DocumentResult.Content
             }
     } else {
+        $QueryString = ''
+        if ($IncludeChildren){
+            $QueryString = $QueryString + "&included_child_entities=$IncludeChildren"
+        }
         Write-Verbose "Fetching All Document Metadata"
         $Documents = Invoke-ZomentumRequest -method get -resource "documents/zapier" -Filters $Filters -MultiFetch
         return $Documents

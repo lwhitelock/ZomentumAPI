@@ -1,5 +1,8 @@
 
 ## Release Notes
+### 0.4 Release
+Added Get-ZomentumDocumentLines
+Added a switch for the alternate multi documents endpoint.
 ### 0.3 Release
 Added IncludeChildren options
 ### 0.2 Release
@@ -96,10 +99,16 @@ Get-ZomentumCustomFields -CustomFieldID "1234vgcdfgd123"
 Get-ZomentumCustomFields -EntityType ["client_company"/"opportunity"/"client_user"/"item"/"document"]
 ```
 #### Get-ZomentumDocuments
+There are two different endpoints you can use for documents returning slightly different data. You can swap between them by adding the -AlternateEndpoint switch
 ```PowerShell
 Get-ZomentumDocuments -DocumentID "1234vgcdfgd123" -OutPath "C:\Temp\"
 Get-ZomentumDocuments -DocumentID "1234vgcdfgd123" -OutFile "C:\Temp\FileName.pdf"
 Get-ZomentumDocuments -Filters $ExampleFilters
+Get-ZomentumDocuments -Filters $ExampleFilters -AlternateEndpoint
+```
+#### Get-ZomentumDocumentLines
+```PowerShell
+Get-ZomentumDocumentLines -DocumentID "1234vgcdfgd123" -RevisionID "456asdggfd654"
 ```
 #### Get-ZomentumEmailLogs
 ```PowerShell

@@ -35,6 +35,7 @@ $ExampleFilters = @(
 Some of the multifetch commands support fetching more than just the default information. To utilize this you can add a -IncludeChildren parameter with a string in the format of: "documents:all,sales_activities:action_status"
 
 The complete list of options are:
+```
 activities:all
 blocks:current_revision
 client_users:all
@@ -59,6 +60,7 @@ merge_tags:all
 approval_automation_rules:all
 document:needs_signature
 client_details:sync_data
+```
 
 ## Commands
 ### Connecting

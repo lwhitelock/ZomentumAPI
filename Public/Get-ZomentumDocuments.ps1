@@ -18,9 +18,11 @@ function Get-ZomentumDocuments {
         [Parameter( ParameterSetName = 'Multiple')]
         [PSCustomObject]$Filters,
         # The Child entities to include with the records.
+        [Parameter( ParameterSetName = 'Single' )]
         [Parameter( ParameterSetName = 'Multiple')]
         [string]$IncludeChildren,
         # Use the alternate API endpoint
+        [Parameter( ParameterSetName = 'Single')]
         [Parameter( ParameterSetName = 'Multiple')]
         [switch]$AlternateEndpoint,
         # Allow Writing Directly to File, using the specified path and file name eg c:\temp\myfile.txt
@@ -31,7 +33,7 @@ function Get-ZomentumDocuments {
         [String]$OutPath
     )
           
-    if ($DocumentID) {
+    if ($DocumentID -and !$AlternateEndpoint) {
         Write-Verbose "Fetching Document"
         $DocumentResult = Invoke-ZomentumRequest -method get -resource "documents/download/$DocumentID" -RawResult
         Write-Verbose 'Processing Processing Document'
@@ -61,8 +63,14 @@ function Get-ZomentumDocuments {
             $QueryString = $QueryString + "&included_child_entities=$IncludeChildren"
         }
         if ($AlternateEndpoint) {
-            Write-Verbose "Fetching Alternate All Document Metadata"
-            $Documents = Invoke-ZomentumRequest -method get -resource "documents" -Filters $Filters -MultiFetch -QueryString $QueryString
+            if ($DocumentID){
+                Write-Verbose "Fetching Alternate Single Document Metadata"
+                $Documents = Invoke-ZomentumRequest -method get -resource "documents/$DocumentID" -QueryString $QueryString
+
+            } else {
+                Write-Verbose "Fetching Alternate All Document Metadata"
+                $Documents = Invoke-ZomentumRequest -method get -resource "documents" -Filters $Filters -MultiFetch -QueryString $QueryString
+            }
         } else {
             Write-Verbose "Fetching All Document Metadata"
             $Documents = Invoke-ZomentumRequest -method get -resource "documents/zapier" -Filters $Filters -MultiFetch -QueryString $QueryString

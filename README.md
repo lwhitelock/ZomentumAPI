@@ -1,5 +1,7 @@
 
 ## Release Notes
+### 0.5 Release
+Added alternate endpoint single document download
 ### 0.4 Release
 Added Get-ZomentumDocumentLines
 Added a switch for the alternate multi documents endpoint.
@@ -105,6 +107,7 @@ There are two different endpoints you can use for documents returning slightly d
 ```PowerShell
 Get-ZomentumDocuments -DocumentID "1234vgcdfgd123" -OutPath "C:\Temp\"
 Get-ZomentumDocuments -DocumentID "1234vgcdfgd123" -OutFile "C:\Temp\FileName.pdf"
+Get-ZomentumDocuments -DocumentID "1234vgcdfgd123" -IncludeChildren "blocks:current_revision,companies:all,tax:all" -AlternateEndpoint
 Get-ZomentumDocuments -Filters $ExampleFilters
 Get-ZomentumDocuments -Filters $ExampleFilters -AlternateEndpoint
 ```

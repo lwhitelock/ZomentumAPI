@@ -1,5 +1,7 @@
 
 ## Release Notes
+### 0.8
+Get-ZomentumDocuments bug fix
 ### 0.7
 Enabled include children on single opportunity requests
 ### 0.6 Release

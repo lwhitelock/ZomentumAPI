@@ -59,19 +59,26 @@ function Get-ZomentumDocuments {
         }
     } else {
         $QueryString = ''
-        if ($IncludeChildren) {
-            $QueryString = $QueryString + "&included_child_entities=$IncludeChildren"
-        }
+        
         if ($AlternateEndpoint) {
             if ($DocumentID){
+                if ($IncludeChildren) {
+                    $QueryString = $QueryString + "?included_child_entities=$IncludeChildren"
+                }
                 Write-Verbose "Fetching Alternate Single Document Metadata"
                 $Documents = Invoke-ZomentumRequest -method get -resource "documents/$DocumentID" -QueryString $QueryString
 
             } else {
+                if ($IncludeChildren) {
+                    $QueryString = $QueryString + "&included_child_entities=$IncludeChildren"
+                }
                 Write-Verbose "Fetching Alternate All Document Metadata"
                 $Documents = Invoke-ZomentumRequest -method get -resource "documents" -Filters $Filters -MultiFetch -QueryString $QueryString
             }
         } else {
+            if ($IncludeChildren) {
+                $QueryString = $QueryString + "&included_child_entities=$IncludeChildren"
+            }
             Write-Verbose "Fetching All Document Metadata"
             $Documents = Invoke-ZomentumRequest -method get -resource "documents/zapier" -Filters $Filters -MultiFetch -QueryString $QueryString
         }

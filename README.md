@@ -1,5 +1,7 @@
 
 ## Release Notes
+### 0.7
+Enabled include children on single opportunity requests
 ### 0.6 Release
 Added Set-ZomentumDocument command (This is not in the official API docs so use at your own risk)
 ### 0.5 Release

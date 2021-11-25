@@ -44,7 +44,7 @@ function Invoke-ZomentumRequest {
 		} else {
 			if (!$MultiFetch) {
 				Write-Verbose "Using single fetch"
-				$Response = Invoke-WebRequest -method $method -uri ($Script:ZomentumBaseURL + $Resource + $ResourceFilter) -Headers $headers -ea stop
+				$Response = Invoke-WebRequest -method $method -uri ($Script:ZomentumBaseURL + $Resource + $ResourceFilter + $QueryString) -Headers $headers -ea stop
 				if ($RawResult) {
 					$Result = $Response
 				} else {

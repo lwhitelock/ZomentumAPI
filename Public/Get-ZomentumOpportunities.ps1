@@ -19,14 +19,19 @@ function Get-ZomentumOpportunities {
         [Parameter( ParameterSetName = 'Multiple')]
         [string]$PipelineID,
         # The Child entities to include with the records.
+        [Parameter( ParameterSetName = 'Single')]
         [Parameter( ParameterSetName = 'Multiple')]
         [string]$IncludeChildren
     )
 
   
     if ($OpportunityID) {
+        $QueryString = ''
+        if ($IncludeChildren){
+            $QueryString = $QueryString + "?included_child_entities=$IncludeChildren"
+        }
         Write-Verbose "Fetching Single Opportunities"
-        $Opportunities = Invoke-ZomentumRequest -method get -resource "opportunities/$OpportunityID"
+        $Opportunities = Invoke-ZomentumRequest -method get -resource "opportunities/$OpportunityID" -QueryString $QueryString
     } else {
         $QueryString = ''
         if ($PipelineID){

@@ -1,5 +1,7 @@
 
 ## Release Notes
+### 0.6 Release
+Added Set-ZomentumDocument command (This is not in the official API docs so use at your own risk)
 ### 0.5 Release
 Added alternate endpoint single document download
 ### 0.4 Release
@@ -284,9 +286,22 @@ The avalible commands are:
 Set-ZomentumCallLog
 Set-ZomentumClient
 Set-ZomentumContact
+Set-ZomentumDocument
 Set-ZomentumEmailLog
 Set-ZomentumOpportunity
 Set-ZomentumProduct
 Set-ZomentumSalesMeeting
 Set-ZomentumSalesTask
 ``` 
+### Set-ZomentumDocument
+Please note this endpoint is not in the official documentation, so use at your own risk.
+```PowerShell
+$CustomField = $Doc.custom_fields | Where-Object { $_.display_name -eq 'YourCustomFieldName'}
+$UpdateDoc = @{
+    id = $Doc.id
+    custom_fields = @(@{
+        id = $CustomField.id
+        values = @('Example New Value')
+    })
+Set-ZomentumDocument -Document $UpdateDoc
+```

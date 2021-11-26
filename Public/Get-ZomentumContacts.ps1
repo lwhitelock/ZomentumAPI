@@ -16,20 +16,24 @@ function Get-ZomentumContacts {
         [Parameter( ParameterSetName = 'Multiple')]
         [PSCustomObject]$Filters,
         # The Child entities to include with the records.
+        [Parameter( ParameterSetName = 'Single')]
         [Parameter( ParameterSetName = 'Multiple')]
         [string]$IncludeChildren
     )
-  
+    $QueryString = ''
     if ($ContactID) {
+        if ($IncludeChildren){
+            $QueryString = $QueryString + "?included_child_entities=$IncludeChildren" -QueryString $QueryString
+        }
         Write-Verbose "Fetching Single Contact"
         $Contacts = Invoke-ZomentumRequest -method get -resource "client/users/$ContactID"
     } else {
-        $QueryString = ''
+        
         if ($IncludeChildren){
             $QueryString = $QueryString + "&included_child_entities=$IncludeChildren"
         }
         Write-Verbose "Fetching Multiple Contacts"
-        $Contacts = Invoke-ZomentumRequest -method get -resource "client/users" -Filters $Filters -MultiFetch
+        $Contacts = Invoke-ZomentumRequest -method get -resource "client/users" -Filters $Filters -MultiFetch -QueryString $QueryString
     }
     return $Contacts
   

@@ -1,8 +1,10 @@
 
 ## Release Notes
-### 0.8
+### 0.9 Release
+Added include child options to single select client and contact get-s
+### 0.8 Release
 Get-ZomentumDocuments bug fix
-### 0.7
+### 0.7 Release
 Enabled include children on single opportunity requests
 ### 0.6 Release
 Added Set-ZomentumDocument command (This is not in the official API docs so use at your own risk)

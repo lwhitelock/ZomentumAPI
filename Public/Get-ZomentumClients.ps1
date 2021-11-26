@@ -16,15 +16,18 @@ function Get-ZomentumClients {
         [Parameter( ParameterSetName = 'Multiple')]
         [PSCustomObject]$Filters,
         # The Child entities to include with the records.
+        [Parameter( ParameterSetName = 'Single')]
         [Parameter( ParameterSetName = 'Multiple')]
         [string]$IncludeChildren
     )
-  
+    $QueryString = ''
     if ($ClientID) {
+        if ($IncludeChildren){
+            $QueryString = $QueryString + "?included_child_entities=$IncludeChildren"
+        }
         Write-Verbose "Fetching Single Client"
-        $Clients = Invoke-ZomentumRequest -method get -resource "client/companies/$ClientID"
+        $Clients = Invoke-ZomentumRequest -method get -resource "client/companies/$ClientID" -QueryString $QueryString
     } else {
-        $QueryString = ''
         if ($IncludeChildren){
             $QueryString = $QueryString + "&included_child_entities=$IncludeChildren"
         }

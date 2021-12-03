@@ -1,5 +1,7 @@
 
 ## Release Notes
+### 0.10 Release
+Fixed Get-ZomentumContacts
 ### 0.9 Release
 Added include child options to single select client and contact get-s
 ### 0.8 Release

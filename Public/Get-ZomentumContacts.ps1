@@ -23,10 +23,10 @@ function Get-ZomentumContacts {
     $QueryString = ''
     if ($ContactID) {
         if ($IncludeChildren){
-            $QueryString = $QueryString + "?included_child_entities=$IncludeChildren" -QueryString $QueryString
+            $QueryString = $QueryString + "?included_child_entities=$IncludeChildren"
         }
         Write-Verbose "Fetching Single Contact"
-        $Contacts = Invoke-ZomentumRequest -method get -resource "client/users/$ContactID"
+        $Contacts = Invoke-ZomentumRequest -method get -resource "client/users/$ContactID"  -QueryString $QueryString
     } else {
         
         if ($IncludeChildren){
